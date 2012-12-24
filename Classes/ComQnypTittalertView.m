@@ -35,25 +35,25 @@
 {
     [alertView.containerView setImage:[[UIImage imageNamed:@"modules/com.qnyp.tittalert/alert.bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(11.0f, 13.0f, 14.0f, 13.0f)]];
     [alertView.containerView setBackgroundColor:[UIColor clearColor]];
-    
+
     alertView.buttonInsets = UIEdgeInsetsMake(alertView.buttonInsets.top, alertView.buttonInsets.left + 4.0f, alertView.buttonInsets.bottom + 6.0f, alertView.buttonInsets.right + 4.0f);
 }
 
 - (void)addButtonsWithBackgroundImagesToAlertView:(TTAlertView *)alertView
 {
-    UIImage *redButtonImageOff = [[UIImage imageNamed:@"modules/com.qnyp.tittalert/large.button.red.off.png"] stretchableImageWithLeftCapWidth:2.0 topCapHeight:2.0];
-    UIImage *redButtonImageOn = [[UIImage imageNamed:@"modules/com.qnyp.tittalert/large.button.red.on.png"] stretchableImageWithLeftCapWidth:2.0 topCapHeight:2.0];
-    
-    UIImage *greenButtonImageOff = [[UIImage imageNamed:@"modules/com.qnyp.tittalert/large.button.green.off.png"] stretchableImageWithLeftCapWidth:2.0 topCapHeight:2.0];
-    UIImage *greenButtonImageOn = [[UIImage imageNamed:@"modules/com.qnyp.tittalert/large.button.green.on.png"] stretchableImageWithLeftCapWidth:2.0 topCapHeight:2.0];
-    
+    UIImage *redButtonImageOff = [[UIImage imageNamed:@"modules/com.qnyp.tittalert/large.button.red.off.png"] stretchableImageWithLeftCapWidth:5.0 topCapHeight:5.0];
+    UIImage *redButtonImageOn = [[UIImage imageNamed:@"modules/com.qnyp.tittalert/large.button.red.on.png"] stretchableImageWithLeftCapWidth:5.0 topCapHeight:5.0];
+
+    UIImage *greenButtonImageOff = [[UIImage imageNamed:@"modules/com.qnyp.tittalert/large.button.green.off.png"] stretchableImageWithLeftCapWidth:5.0 topCapHeight:5.0];
+    UIImage *greenButtonImageOn = [[UIImage imageNamed:@"modules/com.qnyp.tittalert/large.button.green.on.png"] stretchableImageWithLeftCapWidth:5.0 topCapHeight:5.0];
+
     for(int i = 0; i < [alertView numberOfButtons]; i++) {
         if (i == 0) {
             [alertView setButtonBackgroundImage:redButtonImageOff forState:UIControlStateNormal atIndex:i];
-            [alertView setButtonBackgroundImage:redButtonImageOn forState:UIControlStateHighlighted atIndex:i];
+//            [alertView setButtonBackgroundImage:redButtonImageOn forState:UIControlStateHighlighted atIndex:i];
         } else {
             [alertView setButtonBackgroundImage:greenButtonImageOff forState:UIControlStateNormal atIndex:i];
-            [alertView setButtonBackgroundImage:greenButtonImageOn forState:UIControlStateHighlighted atIndex:i];
+//            [alertView setButtonBackgroundImage:greenButtonImageOn forState:UIControlStateHighlighted atIndex:i];
         }
     }
 }
@@ -61,7 +61,6 @@
 # pragma mark Public APIs
 
 - (void)show:(id)args {
-    ENSURE_SINGLE_ARG(args,NSDictionary);
     TTAlertView *alertView = [[TTAlertView alloc] initWithTitle:title
                                                         message:message
                                                        delegate:self

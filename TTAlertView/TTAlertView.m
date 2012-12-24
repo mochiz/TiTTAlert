@@ -53,13 +53,16 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
 {
     self = [super init];
     if (self) {
-        
+        self.backgroundColor = [UIColor clearColor];
+        self.alpha = 0;
+        self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
         self.title = title;
         self.message = message;
         self.delegate = delegate;
 
         self.cancelButtonTitle = cancelButtonTitle;
-        
+
         NSMutableArray *otherTitlesArray = [NSMutableArray array];
         id eachObject;
         va_list argList;
@@ -73,18 +76,30 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
             va_end(argList);
         }
         self.otherButtonTitles = otherTitlesArray;
-        
         self.usingCustomButtonSizes = NO;
         self.buttonSizeStrings = [NSMutableDictionary dictionary];
         _visible = NO;
         [self setUserInteractionEnabled:YES];
-        
         [self setupDefaultInsets];
         [self setupView];
-        
     }
     return self;
 }
+
+- (void)drawRect:(CGRect)rect {
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    size_t locationsCount = 2;
+    CGFloat locations[2] = {0.0f, 1.0f};
+    CGFloat colors[8] = {0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.50f};
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpace, colors, locations, locationsCount);
+    CGColorSpaceRelease(colorSpace);
+    CGPoint center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+    float radius = MIN(self.bounds.size.width - 80 , self.bounds.size.width - 80) ;
+    CGContextDrawRadialGradient (context, gradient, center, 0, center, radius, kCGGradientDrawsAfterEndLocation);
+    CGGradientRelease(gradient);
+}
+
 
 #pragma mark - Show/Dismiss
 
@@ -268,6 +283,7 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
     [otherButton setBackgroundColor:[UIColor blackColor]];
     [otherButton addTarget:self action:@selector(otherButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [otherButton setTitle:title forState:UIControlStateNormal];
+    [otherButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
     [self.containerView addSubview:otherButton];
     [self.buttons insertObject:otherButton atIndex:([self.buttons count] - 1) + self.firstOtherButtonIndex];
     
@@ -296,6 +312,7 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
     [cancelButton setBackgroundColor:[UIColor blackColor]];
     [cancelButton addTarget:self action:@selector(cancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [cancelButton setTitle:self.cancelButtonTitle forState:UIControlStateNormal];
+    [cancelButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
     [self.containerView addSubview:cancelButton];
     [self.buttons insertObject:cancelButton atIndex:_cancelButtonIndex];
     
@@ -465,11 +482,11 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
 }
 
 - (void)setupView
-{   
-    UIImageView *backgroundView = [[UIImageView alloc] init];
-    [backgroundView setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.7]];
-    [self addSubview:backgroundView];
-    _backgroundView = backgroundView;
+{
+    // UIImageView *backgroundView = [[UIImageView alloc] init];
+    // [backgroundView setBackgroundColor:[UIColor clearColor]];
+    // [self addSubview:backgroundView];
+    // _backgroundView = backgroundView;
     
     UIImageView *dialogContainerView = [[UIImageView alloc] init];
     [dialogContainerView setBackgroundColor:[UIColor whiteColor]];
@@ -479,7 +496,8 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
     
     UILabel *titleLabel = [[UILabel alloc] init];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setTextColor:[UIColor blackColor]];
+    [titleLabel setTextColor:[UIColor whiteColor]];
+    [titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [titleLabel setText:self.title];
     [self.containerView addSubview:titleLabel];
@@ -491,7 +509,9 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
     
     UILabel *messageLabel = [[UILabel alloc] init];
     [messageLabel setBackgroundColor:[UIColor clearColor]];
-    [messageLabel setTextColor:[UIColor blackColor]];
+    [messageLabel setTextColor:[UIColor whiteColor]];
+    [messageLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+    
     [messageLabel setTextAlignment:NSTextAlignmentCenter];
     [messageLabel setText:self.message];
     [messageLabel setNumberOfLines:0];

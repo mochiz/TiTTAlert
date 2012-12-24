@@ -12,8 +12,7 @@
 
 -(void)show:(id)args
 {
-	[[self view] performSelectorOnMainThread:@selector(show:) withObject:args waitUntilDone:NO];
+    [[self view] performSelectorOnMainThread:@selector(show:) withObject:args waitUntilDone:NO];
 }
-
 
 @end

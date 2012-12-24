@@ -7,7 +7,10 @@
 #import "TiUIView.h"
 
 @interface ComQnypTittalertView : TiUIView {
-    UIView *square;
+    NSString *title;
+    NSString *message;
+    NSString *cancelButtonTitle;
+    NSString *otherButtonTitle;
 }
 
 @end

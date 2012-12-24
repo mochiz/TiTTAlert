@@ -12,43 +12,23 @@
 @implementation ComQnypTittalertView
 -(void)dealloc
 {
-    RELEASE_TO_NIL(square);
     [super dealloc];
 }
 
--(UIView*)square
-{
-    if (square==nil)
-    {
-        square = [[UIView alloc] initWithFrame:[self frame]];
-        [self addSubview:square];
-    }
-    return square;
-}
--(void)frameSizeChanged:(CGRect)frame bounds:(CGRect)bounds
-{
-    if (square!=nil)
-    {
-        [TiUtils setView:square positionRect:bounds];
-    }
+-(void)setTitle_:(id)value {
+    title = [TiUtils stringValue:value];
 }
 
--(void)setColor_:(id)color
-{
-    UIColor *c = [[TiUtils colorValue:color] _color];
-    UIView *s = [self square];
-    s.backgroundColor = c;
+-(void)setMessage_:(id)value {
+    message = [TiUtils stringValue:value];
 }
 
-+(NSString*)moduleId
-{
-	return @"com.qnyp.tittalert";
+-(void)setCancelButtonTitle_:(id)value {
+    cancelButtonTitle = [TiUtils stringValue:value];
 }
-
-+(NSString*)imagePath:(NSString*)name
-{
-    NSString *path = [NSString stringWithFormat:@"modules/%@/%@.png", [self moduleId], name];
-    return path;
+-(void)setOtherButtonTitle_:(id)value {
+    // 複数のボタンには対応していません
+    otherButtonTitle = value;
 }
 
 - (void)styleCustomAlertView:(TTAlertView *)alertView
@@ -82,10 +62,33 @@
 
 - (void)show:(id)args {
     ENSURE_SINGLE_ARG(args,NSDictionary);
-    TTAlertView *alertView = [[TTAlertView alloc] initWithTitle:@"Long Text" message:@"hogehoge" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Test", nil];
+    TTAlertView *alertView = [[TTAlertView alloc] initWithTitle:title
+                                                        message:message
+                                                       delegate:self
+                                              cancelButtonTitle:cancelButtonTitle
+                                              otherButtonTitles:otherButtonTitle, nil];
     [self styleCustomAlertView:alertView];
     [self addButtonsWithBackgroundImagesToAlertView:alertView];
     [alertView show];
+}
+
+#pragma mark TTAlertView Delegate
+
+- (void)alertView:(TTAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	if ([self.proxy _hasListeners:@"click"])
+	{
+        NSInteger cancel = 0;
+        if (buttonIndex == alertView.cancelButtonIndex) {
+            cancel = 1;
+        }
+        NSLog(@"cancel:%d", cancel);
+		NSMutableDictionary *event = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                      [NSNumber numberWithInt:buttonIndex],@"index",
+                                      [NSNumber numberWithInt:cancel],@"cancel",
+                                      nil];
+		[self.proxy fireEvent:@"click" withObject:event];
+	}
 }
 
 @end

@@ -49,10 +49,10 @@
 /* Begin PBXFileReference section */
 		248BE160168759560041D3CA /* TTAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAlertView.h; sourceTree = "<group>"; };
 		248BE161168759560041D3CA /* TTAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAlertView.m; sourceTree = "<group>"; };
-		249B086F16876AEE00F45ACB /* ComQnypTittalertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComQnypTittalertView.h; sourceTree = "<group>"; };
-		249B087016876AEE00F45ACB /* ComQnypTittalertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComQnypTittalertView.m; sourceTree = "<group>"; };
-		249B087416876AFF00F45ACB /* ComQnypTittalertViewProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComQnypTittalertViewProxy.h; sourceTree = "<group>"; };
-		249B087516876AFF00F45ACB /* ComQnypTittalertViewProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComQnypTittalertViewProxy.m; sourceTree = "<group>"; };
+		249B086F16876AEE00F45ACB /* ComQnypTittalertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComQnypTittalertView.h; path = Classes/ComQnypTittalertView.h; sourceTree = "<group>"; };
+		249B087016876AEE00F45ACB /* ComQnypTittalertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ComQnypTittalertView.m; path = Classes/ComQnypTittalertView.m; sourceTree = "<group>"; };
+		249B087416876AFF00F45ACB /* ComQnypTittalertViewProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComQnypTittalertViewProxy.h; path = Classes/ComQnypTittalertViewProxy.h; sourceTree = "<group>"; };
+		249B087516876AFF00F45ACB /* ComQnypTittalertViewProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ComQnypTittalertViewProxy.m; path = Classes/ComQnypTittalertViewProxy.m; sourceTree = "<group>"; };
 		24DD6CF71134B3F500162E58 /* ComQnypTittalertModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComQnypTittalertModule.h; path = Classes/ComQnypTittalertModule.h; sourceTree = "<group>"; };
 		24DD6CF81134B3F500162E58 /* ComQnypTittalertModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ComQnypTittalertModule.m; path = Classes/ComQnypTittalertModule.m; sourceTree = "<group>"; };
 		24DD6D1B1134B66800162E58 /* titanium.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = titanium.xcconfig; sourceTree = "<group>"; };

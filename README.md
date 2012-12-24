@@ -80,6 +80,11 @@ ttalert.addEventListener('click', function(e){
 });
 ```
 
+IMAGES
+-------------------------
+Images are in `assets` directory.
+
+
 ABOUT EXAMPLE APP
 -------------------------
 Example app is in `example` directory.

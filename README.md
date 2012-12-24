@@ -26,22 +26,58 @@ USING MODULE IN CODE
 For example
 
 ```
-var win = Ti.UI.createWindow();
-var tittalert = require('com.qnyp.tittlert');
-var alert = tittalert.createView();
-win.add(alert);
-
-alert.show();
+var tittalert = require('com.qnyp.tittalert');
+var ttalert = tittalert.createView({
+    'title': 'single button alert',
+    'message': 'Message',
+    'cancelButtonTitle': 'キャンセル'
+});
+ttalert.show();
 ```
 
 USAGE
 -------------------------
 
-あとで書く
-
-show
+single button alert
 ```
-あとで書く
+tittalert.createView({
+    'title': 'single button alert',
+    'message': 'message here',
+    'cancelButtonTitle': 'cancel'
+});
+```
+
+two button alert
+```
+tittalert.createView({
+    'title': 'two button alert',
+    'message': 'message here',
+    'cancelButtonTitle': 'cancel'
+    'otherButtonTitle': 'OK'
+});
+```
+
+three button alert
+```
+実装できてませぬ
+```
+
+click event
+```
+ttalert = tittalert.createView({
+    'title': 'two button alert',
+    'message': 'message here',
+    'cancelButtonTitle': 'cancel'
+    'otherButtonTitle': 'OK'
+});
+ttalert.addEventListener('click', function(e){
+    if(e.cancel) {
+        // canceled
+    }
+    if(e.index == 1) {
+        // ok
+    }
+});
 ```
 
 ABOUT EXAMPLE APP

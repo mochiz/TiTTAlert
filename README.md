@@ -2,7 +2,7 @@ TiTTAlert module
 ===========================================
 Titanium Mobile iOS Module project for [TTAlertView](https://github.com/twotoasters/TTAlertView)
 
-![screenshot 2012-12-24 at 2 17 45](https://f.cloud.github.com/assets/217503/29094/030089e4-4d26-11e2-9722-4c18115d146c.png)
+![screenshot 2012-12-24 at 12 46 45](https://f.cloud.github.com/assets/217503/29435/a47801e8-4d7c-11e2-8115-6a05a3eecb0c.png)
 
 INSTALL MODULE
 --------------------

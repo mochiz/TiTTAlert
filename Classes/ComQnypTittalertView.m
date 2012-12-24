@@ -35,7 +35,8 @@
 {
     [alertView.containerView setImage:[[UIImage imageNamed:@"modules/com.qnyp.tittalert/alert.bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(11.0f, 13.0f, 14.0f, 13.0f)]];
     [alertView.containerView setBackgroundColor:[UIColor clearColor]];
-
+    [alertView.containerView setAlpha:0.9f];
+    
     alertView.buttonInsets = UIEdgeInsetsMake(alertView.buttonInsets.top, alertView.buttonInsets.left + 4.0f, alertView.buttonInsets.bottom + 6.0f, alertView.buttonInsets.right + 4.0f);
 }
 

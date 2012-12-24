@@ -483,11 +483,6 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
 
 - (void)setupView
 {
-    // UIImageView *backgroundView = [[UIImageView alloc] init];
-    // [backgroundView setBackgroundColor:[UIColor clearColor]];
-    // [self addSubview:backgroundView];
-    // _backgroundView = backgroundView;
-    
     UIImageView *dialogContainerView = [[UIImageView alloc] init];
     [dialogContainerView setBackgroundColor:[UIColor whiteColor]];
     [dialogContainerView setUserInteractionEnabled:YES];
@@ -497,7 +492,7 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
     UILabel *titleLabel = [[UILabel alloc] init];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setTextColor:[UIColor whiteColor]];
-    [titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+    [titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [titleLabel setText:self.title];
     [self.containerView addSubview:titleLabel];
@@ -510,7 +505,7 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
     UILabel *messageLabel = [[UILabel alloc] init];
     [messageLabel setBackgroundColor:[UIColor clearColor]];
     [messageLabel setTextColor:[UIColor whiteColor]];
-    [messageLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+    [messageLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
     
     [messageLabel setTextAlignment:NSTextAlignmentCenter];
     [messageLabel setText:self.message];

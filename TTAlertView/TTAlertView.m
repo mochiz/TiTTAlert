@@ -284,6 +284,7 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
     [otherButton addTarget:self action:@selector(otherButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [otherButton setTitle:title forState:UIControlStateNormal];
     [otherButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+    [otherButton.titleLabel setAdjustsFontSizeToFitWidth:YES];
     [self.containerView addSubview:otherButton];
     [self.buttons insertObject:otherButton atIndex:([self.buttons count] - 1) + self.firstOtherButtonIndex];
     
@@ -313,6 +314,7 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
     [cancelButton addTarget:self action:@selector(cancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [cancelButton setTitle:self.cancelButtonTitle forState:UIControlStateNormal];
     [cancelButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
+    [cancelButton.titleLabel setAdjustsFontSizeToFitWidth:YES];
     [self.containerView addSubview:cancelButton];
     [self.buttons insertObject:cancelButton atIndex:_cancelButtonIndex];
     

@@ -5,12 +5,16 @@
  * Please see the LICENSE included with this distribution for details.
  */
 #import "TiUIView.h"
+#import "TTAlertView.h"
 
 @interface ComQnypTittalertView : TiUIView {
+    TTAlertView *alert;
     NSString *title;
     NSString *message;
     NSString *cancelButtonTitle;
-    NSString *otherButtonTitle;
+    NSMutableArray *otherButtonTitles;
 }
+
+-(void)show:(id)args;
 
 @end

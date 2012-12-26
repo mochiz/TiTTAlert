@@ -9,9 +9,17 @@
 #import "TiUtils.h"
 #import "TTAlertView.h"
 
+static NSCondition* alertCondition;
+static BOOL alertShowing = NO;
+
 @implementation ComQnypTittalertView
 -(void)dealloc
 {
+    RELEASE_TO_NIL(alert);
+    RELEASE_TO_NIL(title);
+    RELEASE_TO_NIL(message);
+    RELEASE_TO_NIL(cancelButtonTitle);
+    RELEASE_TO_NIL(otherButtonTitles);
     [super dealloc];
 }
 
@@ -26,9 +34,12 @@
 -(void)setCancelButtonTitle_:(id)value {
     cancelButtonTitle = [TiUtils stringValue:value];
 }
--(void)setOtherButtonTitle_:(id)value {
+
+-(void)setOtherButtonTitles_:(id)value {
+    ENSURE_TYPE(value, NSArray);
     // 複数のボタンには対応していません
-    otherButtonTitle = value;
+    otherButtonTitles = [value objectAtIndex:0];
+//    otherButtonTitles = value;
 }
 
 - (void)styleCustomAlertView:(TTAlertView *)alertView
@@ -62,14 +73,40 @@
 # pragma mark Public APIs
 
 - (void)show:(id)args {
-    TTAlertView *alertView = [[TTAlertView alloc] initWithTitle:title
-                                                        message:message
-                                                       delegate:self
-                                              cancelButtonTitle:cancelButtonTitle
-                                              otherButtonTitles:otherButtonTitle, nil];
-    [self styleCustomAlertView:alertView];
-    [self addButtonsWithBackgroundImagesToAlertView:alertView];
-    [alertView show];
+    if (alertCondition==nil)
+    {
+            alertCondition = [[NSCondition alloc] init];
+    }
+    // prevent more than one JS thread from showing an alert box at a time
+    if ([NSThread isMainThread]==NO)
+    {
+//		[self rememberSelf];
+		
+        [alertCondition lock];
+        if (alertShowing) {
+            [alertCondition wait];
+		}
+        alertShowing = YES;
+        [alertCondition unlock];
+        // alert show should block the JS thread like the browser
+        TiThreadPerformOnMainThread(^{[self show:args];}, YES);
+	} else {
+        RELEASE_TO_NIL(alert);
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(suspended:)
+//                                                     name:kTiSuspendNotification
+//                                                   object:nil];
+//        persistentFlag = [TiUtils boolValue:[self valueForKey:@"persistent"] def:NO];
+        alert = [[TTAlertView alloc] initWithTitle:title
+                                           message:message
+                                          delegate:self
+                                 cancelButtonTitle:cancelButtonTitle
+                                 otherButtonTitles:otherButtonTitles, nil];
+        [self styleCustomAlertView:alert];
+        [self addButtonsWithBackgroundImagesToAlertView:alert];
+        [self retain];
+        [alert show];
+    }
 }
 
 #pragma mark TTAlertView Delegate

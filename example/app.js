@@ -42,7 +42,7 @@ var button3 = Ti.UI.createButton({
 
 button1.addEventListener('click', function(){
   ttalert = tittalert.createView({
-    'title': 'single button alert',
+    'title': 'Title',
     'message': 'Message',
     'cancelButtonTitle': 'キャンセル'
   });
@@ -56,10 +56,10 @@ button1.addEventListener('click', function(){
 
 button2.addEventListener('click', function(){
   ttalert = tittalert.createView({
-    'title': 'This is Title',
+    'title': 'Title',
     'message': 'Message',
     'cancelButtonTitle': 'キャンセル',
-    'otherButtonTitle': 'OK'
+    'otherButtonTitles': ['OK']
   });
   ttalert.addEventListener('click', function(e){
     Ti.API.debug('clicked');

@@ -15,7 +15,6 @@ static BOOL alertShowing = NO;
 @implementation ComQnypTittalertView
 -(void)dealloc
 {
-    RELEASE_TO_NIL(alert);
     RELEASE_TO_NIL(title);
     RELEASE_TO_NIL(message);
     RELEASE_TO_NIL(cancelButtonTitle);
@@ -24,22 +23,20 @@ static BOOL alertShowing = NO;
 }
 
 -(void)setTitle_:(id)value {
-    title = [TiUtils stringValue:value];
+    title = [TiUtils stringValue:[self.proxy valueForUndefinedKey:@"title"]];
 }
 
 -(void)setMessage_:(id)value {
-    message = [TiUtils stringValue:value];
+    message = [TiUtils stringValue:[self.proxy valueForUndefinedKey:@"message"]];
 }
 
 -(void)setCancelButtonTitle_:(id)value {
-    cancelButtonTitle = [TiUtils stringValue:value];
+    cancelButtonTitle = [TiUtils stringValue:[self.proxy valueForUndefinedKey:@"cancelButtonTitle"]];
 }
 
 -(void)setOtherButtonTitles_:(id)value {
-    ENSURE_TYPE(value, NSArray);
-    // 複数のボタンには対応していません
-    otherButtonTitles = [value objectAtIndex:0];
-//    otherButtonTitles = value;
+    otherButtonTitles = [self.proxy valueForUndefinedKey:@"otherButtonTitles"];
+    ENSURE_TYPE(otherButtonTitles, NSArray);
 }
 
 - (void)styleCustomAlertView:(TTAlertView *)alertView
@@ -80,6 +77,7 @@ static BOOL alertShowing = NO;
     // prevent more than one JS thread from showing an alert box at a time
     if ([NSThread isMainThread]==NO)
     {
+      // TODO: ここ何やってるのかよくわかってない
 //		[self rememberSelf];
 		
         [alertCondition lock];
@@ -91,17 +89,18 @@ static BOOL alertShowing = NO;
         // alert show should block the JS thread like the browser
         TiThreadPerformOnMainThread(^{[self show:args];}, YES);
 	} else {
-        RELEASE_TO_NIL(alert);
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//                                                 selector:@selector(suspended:)
-//                                                     name:kTiSuspendNotification
-//                                                   object:nil];
-//        persistentFlag = [TiUtils boolValue:[self valueForKey:@"persistent"] def:NO];
-        alert = [[TTAlertView alloc] initWithTitle:title
+        if (message == NULL && title == NULL && cancelButtonTitle == NULL) {
+            title = [TiUtils stringValue:[self.proxy valueForUndefinedKey:@"title"]];
+            message = [TiUtils stringValue:[self.proxy valueForUndefinedKey:@"message"]];
+            cancelButtonTitle = [TiUtils stringValue:[self.proxy valueForUndefinedKey:@"cancelButtonTitle"]];
+            otherButtonTitles = [self.proxy valueForUndefinedKey:@"otherButtonTitles"];
+            ENSURE_TYPE(otherButtonTitles, NSMutableArray);
+        }
+        TTAlertView *alert = [[TTAlertView alloc] initWithTitle:title
                                            message:message
                                           delegate:self
                                  cancelButtonTitle:cancelButtonTitle
-                                 otherButtonTitles:otherButtonTitles, nil];
+                                 otherButtonTitles:otherButtonTitles];
         [self styleCustomAlertView:alert];
         [self addButtonsWithBackgroundImagesToAlertView:alert];
         [self retain];
@@ -125,7 +124,7 @@ static BOOL alertShowing = NO;
                                       [NSNumber numberWithInt:cancel],@"cancel",
                                       nil];
 		[self.proxy fireEvent:@"click" withObject:event];
-	}
+    }
 }
 
 @end

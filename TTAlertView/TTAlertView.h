@@ -55,7 +55,7 @@ typedef void (^TTAlertViewActionHandler)(NSInteger index);
 
 #pragma mark - UIAlertView methods
 
-- (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ...;
+- (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSArray *)otherButtonTitles;
 - (void)show;
 - (void)dismissWithClickedButtonIndex:(NSInteger)index animated:(BOOL)animated;
 - (void)addButtonWithTitle:(NSString *)title;

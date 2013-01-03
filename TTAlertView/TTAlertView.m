@@ -49,7 +49,7 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
 
 @implementation TTAlertView
 
-- (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ...
+- (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitles:(NSArray *)otherButtonTitles
 {
     self = [super init];
     if (self) {
@@ -62,20 +62,8 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
         self.delegate = delegate;
 
         self.cancelButtonTitle = cancelButtonTitle;
+        self.otherButtonTitles = otherButtonTitles;
 
-        NSMutableArray *otherTitlesArray = [NSMutableArray array];
-        id eachObject;
-        va_list argList;
-        if (otherButtonTitles) {
-            _firstOtherButtonIndex = 1;
-            [otherTitlesArray addObject:otherButtonTitles];
-            va_start(argList, otherButtonTitles);
-            while ( (eachObject = va_arg(argList, id)) ) {
-                [otherTitlesArray addObject:eachObject];
-            }
-            va_end(argList);
-        }
-        self.otherButtonTitles = otherTitlesArray;
         self.usingCustomButtonSizes = NO;
         self.buttonSizeStrings = [NSMutableDictionary dictionary];
         _visible = NO;
@@ -316,7 +304,8 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
     [cancelButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:18]];
     [cancelButton.titleLabel setAdjustsFontSizeToFitWidth:YES];
     [self.containerView addSubview:cancelButton];
-    [self.buttons insertObject:cancelButton atIndex:_cancelButtonIndex];
+    [self.buttons addObject:cancelButton];
+//    [self.buttons insertObject:cancelButton atIndex:_cancelButtonIndex];
     
     [self.otherButtonTitles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [self addButtonWithTitle:(NSString *)obj];
@@ -486,7 +475,9 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
 - (void)setupView
 {
     UIImageView *dialogContainerView = [[UIImageView alloc] init];
-    [dialogContainerView setBackgroundColor:[UIColor whiteColor]];
+    dialogContainerView.layer.cornerRadius = 10.0f;
+    [dialogContainerView setBackgroundColor:[UIColor blackColor]];
+    [dialogContainerView setAlpha:0.8f];
     [dialogContainerView setUserInteractionEnabled:YES];
     [self addSubview:dialogContainerView];
     _containerView = dialogContainerView;
@@ -507,8 +498,7 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
     UILabel *messageLabel = [[UILabel alloc] init];
     [messageLabel setBackgroundColor:[UIColor clearColor]];
     [messageLabel setTextColor:[UIColor whiteColor]];
-    [messageLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
-    
+//    [messageLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
     [messageLabel setTextAlignment:NSTextAlignmentCenter];
     [messageLabel setText:self.message];
     [messageLabel setNumberOfLines:0];
@@ -528,6 +518,7 @@ static CGFloat const kTTDefaultDialogButtonHeight = 44.0f;
         self.buttonActionHandler(self.cancelButtonIndex);
     } else {
         if([self.delegate respondsToSelector:@selector(alertView:clickedButtonAtIndex:)]) {
+            NSLog(@"TTAlertView cancelButtonAction:============");
             [self.delegate alertView:self clickedButtonAtIndex:self.cancelButtonIndex];
         }
     }

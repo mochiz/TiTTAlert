@@ -39,6 +39,13 @@ var button3 = Ti.UI.createButton({
   title: 'three button alert'
 });
 
+var button5 = Ti.UI.createButton({
+  top: 10,
+  width: Ti.UI.SIZE,
+  height: Ti.UI.SIZE,
+  title: 'FIVE button alert'
+});
+
 
 button1.addEventListener('click', function(){
   ttalert = tittalert.createView({
@@ -74,17 +81,33 @@ button2.addEventListener('click', function(){
       // "OK"時の処理
       alert('ok clicked');
     }
-    alert(e);
   });
   ttalert.show();
 });
 
 button3.addEventListener('click', function(){
-  alert('3つ以上のボタンクリックには対応できていません');
+  ttalert = tittalert.createView({
+    'title': 'Title',
+    'message': 'Message',
+    'cancelButtonTitle': 'キャンセル',
+    'otherButtonTitles': ['ONE', 'TWO']
+  });
+  ttalert.show();
+});
+
+button5.addEventListener('click', function(){
+  ttalert = tittalert.createView({
+    'title': 'Title',
+    'message': 'Message',
+    'cancelButtonTitle': 'キャンセル',
+    'otherButtonTitles': ['ONE', 'TWO', 'THREE', 'FOUR']
+  });
+  ttalert.show();
 });
 
 container.add(button1);
 container.add(button2);
 container.add(button3);
+container.add(button5);
 win.add(container);
 win.open();

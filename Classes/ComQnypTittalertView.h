@@ -8,7 +8,6 @@
 #import "TTAlertView.h"
 
 @interface ComQnypTittalertView : TiUIView {
-    TTAlertView *alert;
     NSString *title;
     NSString *message;
     NSString *cancelButtonTitle;

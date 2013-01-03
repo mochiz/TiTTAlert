@@ -53,13 +53,18 @@ tittalert.createView({
     'title': 'two button alert',
     'message': 'message here',
     'cancelButtonTitle': 'cancel'
-    'otherButtonTitle': 'OK'
+    'otherButtonTitles': ['OK']
 });
 ```
 
 three button alert
 ```
-実装できてませぬ
+tittalert.createView({
+    'title': 'three button alert',
+    'message': 'message here',
+    'cancelButtonTitle': 'cancel'
+    'otherButtonTitles': ['ONE', 'TWO']
+});
 ```
 
 click event
@@ -82,6 +87,7 @@ ttalert.addEventListener('click', function(e){
 
 IMAGES
 -------------------------
+You can change backgroundImage.
 Images are in `assets` directory.
 
 
